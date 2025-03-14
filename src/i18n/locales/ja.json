@@ -37,5 +37,27 @@
     "usdt": "USDT",
     "gameCoin": "GameCoin",
     "bcm": "BCM"
+  },
+  "customs": {
+    "title": "関税情報",
+    "info": "関税情報",
+    "rate": "関税率",
+    "amount": "関税額",
+    "total": "合計金額",
+    "pay": "関税を支払う",
+    "processing": "処理中...",
+    "history": "関税履歴",
+    "noHistory": "関税履歴はありません",
+    "receipt": "関税領収書",
+    "download": "領収書をダウンロード",
+    "downloadSuccess": "領収書がダウンロードされました",
+    "viewReceipt": "領収書を表示",
+    "status": "ステータス",
+    "date": "日付",
+    "status": {
+      "pending": "未払い",
+      "paid": "支払い済み",
+      "exempted": "免除"
+    }
   }
 }

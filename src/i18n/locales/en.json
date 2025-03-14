@@ -37,5 +37,27 @@
     "usdt": "USDT",
     "gameCoin": "GameCoin",
     "bcm": "BCM"
+  },
+  "customs": {
+    "title": "Customs Information",
+    "info": "Customs Info",
+    "rate": "Customs Rate",
+    "amount": "Customs Amount",
+    "total": "Total Amount",
+    "pay": "Pay Customs",
+    "processing": "Processing...",
+    "history": "Customs History",
+    "noHistory": "No customs history",
+    "receipt": "Customs Receipt",
+    "download": "Download Receipt",
+    "downloadSuccess": "Receipt downloaded",
+    "viewReceipt": "View Receipt",
+    "status": "Status",
+    "date": "Date",
+    "status": {
+      "pending": "Pending",
+      "paid": "Paid",
+      "exempted": "Exempted"
+    }
   }
 }

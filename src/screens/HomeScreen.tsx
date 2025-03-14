@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { Send, Download, Plus } from 'lucide-react';
+import { Send, Download, Plus, History } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { useWallet } from '../contexts/WalletContext';
@@ -70,7 +70,7 @@ const HomeScreen: React.FC = () => {
         </CardContent>
       </Card>
       
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-2 gap-4 mb-4">
         <Button onClick={() => navigate('/send')} className="flex items-center justify-center gap-2">
           <Send size={18} />
           {t('wallet.send')}
@@ -80,6 +80,15 @@ const HomeScreen: React.FC = () => {
           {t('wallet.receive')}
         </Button>
       </div>
+      
+      <Button 
+        onClick={() => navigate('/customs/history')} 
+        variant="outline" 
+        className="w-full flex items-center justify-center gap-2"
+      >
+        <History size={18} />
+        {t('customs.history')}
+      </Button>
     </div>
   );
 };
