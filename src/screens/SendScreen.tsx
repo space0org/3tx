@@ -4,17 +4,32 @@ import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card';
 import { Input } from '../components/ui/input';
 import { useWallet } from '../contexts/WalletContext';
+import { useSolanaWallet } from '../contexts/SolanaWalletContext';
+import { useNetwork } from '../contexts/NetworkContext';
+import { useCustoms } from '../contexts/CustomsContext';
 import { setupMainButton, setupBackButton } from '../services/telegram';
 import { sendToken } from '../services/wallet';
+import { sendSolanaToken } from '../services/solana/wallet';
 
 const SendScreen: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { network } = useNetwork();
   const { wallet, selectedToken } = useWallet();
+  const { wallet: solanaWallet, selectedToken: selectedSolanaToken } = useSolanaWallet();
+  const { calculateTransactionCustoms, createCustomsInfo } = useCustoms();
   const [recipient, setRecipient] = useState('');
   const [amount, setAmount] = useState('');
   const [error, setError] = useState('');
   const [isSending, setIsSending] = useState(false);
+  const [customsInfo, setCustomsInfo] = useState<{
+    customsRate: number;
+    customsAmount: string;
+    totalAmount: string;
+  } | null>(null);
+
+  const activeWallet = network === 'ethereum' ? wallet : solanaWallet;
+  const activeToken = network === 'ethereum' ? selectedToken : selectedSolanaToken;
 
   useEffect(() => {
     setupBackButton(() => {
@@ -24,8 +39,18 @@ const SendScreen: React.FC = () => {
     setupMainButton(t('wallet.confirm'), handleSend);
   }, [recipient, amount, t, navigate]);
 
+  // 金額が変更されたときに関税を計算
+  useEffect(() => {
+    if (amount && activeToken) {
+      const info = calculateTransactionCustoms(amount, activeToken.symbol);
+      setCustomsInfo(info);
+    } else {
+      setCustomsInfo(null);
+    }
+  }, [amount, activeToken, calculateTransactionCustoms]);
+
   const handleSend = async () => {
-    if (!wallet || !selectedToken) return;
+    if (!activeWallet || !activeToken) return;
     
     if (!recipient) {
       setError(t('wallet.error.emptyAddress'));
@@ -38,13 +63,32 @@ const SendScreen: React.FC = () => {
     }
     
     try {
+      // 関税情報を作成
+      if (customsInfo && parseFloat(customsInfo.customsAmount) > 0) {
+        const info = createCustomsInfo(amount, activeToken.symbol);
+        navigate('/customs', { state: { customsInfo: info } });
+        return;
+      }
+      
+      // 関税がない場合は直接送金
       setIsSending(true);
-      await sendToken(
-        wallet.privateKey,
-        recipient,
-        amount,
-        selectedToken.symbol
-      );
+      
+      if (network === 'ethereum') {
+        await sendToken(
+          activeWallet.privateKey,
+          recipient,
+          amount,
+          activeToken.symbol
+        );
+      } else {
+        await sendSolanaToken(
+          activeWallet.privateKey,
+          recipient,
+          amount,
+          activeToken.symbol
+        );
+      }
+      
       navigate('/');
     } catch (error) {
       console.error('Error sending token:', error);
@@ -71,7 +115,7 @@ const SendScreen: React.FC = () => {
                 setRecipient(e.target.value);
                 setError('');
               }}
-              placeholder="0x..."
+              placeholder={network === 'ethereum' ? "0x..." : "Solana address..."}
             />
           </div>
           
@@ -89,9 +133,29 @@ const SendScreen: React.FC = () => {
               placeholder="0.00"
             />
             <p className="text-sm text-muted-foreground mt-1">
-              {selectedToken?.symbol} - {t('wallet.balance')}: {selectedToken?.balance}
+              {activeToken?.symbol} - {t('wallet.balance')}: {activeToken?.balance}
             </p>
           </div>
+          
+          {customsInfo && parseFloat(customsInfo.customsAmount) > 0 && (
+            <Card className="bg-muted">
+              <CardHeader className="p-3">
+                <CardTitle className="text-sm">{t('customs.info')}</CardTitle>
+              </CardHeader>
+              <CardContent className="p-3 pt-0">
+                <div className="grid grid-cols-2 gap-1 text-sm">
+                  <div className="text-muted-foreground">{t('customs.rate')}</div>
+                  <div className="text-right">{(customsInfo.customsRate * 100).toFixed(2)}%</div>
+                  
+                  <div className="text-muted-foreground">{t('customs.amount')}</div>
+                  <div className="text-right">{customsInfo.customsAmount} {activeToken?.symbol}</div>
+                  
+                  <div className="font-medium">{t('customs.total')}</div>
+                  <div className="font-medium text-right">{customsInfo.totalAmount} {activeToken?.symbol}</div>
+                </div>
+              </CardContent>
+            </Card>
+          )}
           
           {error && <p className="text-destructive text-sm">{error}</p>}
         </CardContent>
