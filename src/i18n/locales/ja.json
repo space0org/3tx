@@ -1,0 +1,41 @@
+{
+  "wallet": {
+    "title": "3Xs ウォレット",
+    "balance": "残高",
+    "send": "送金",
+    "receive": "受取",
+    "import": "インポート",
+    "scan": "スキャン",
+    "enterAmount": "金額を入力",
+    "enterAddress": "アドレスを入力",
+    "confirm": "確認",
+    "cancel": "キャンセル",
+    "success": "成功",
+    "error": "エラー",
+    "importWallet": "ウォレットをインポート",
+    "secretKey": "シークレットキー",
+    "qrCode": "QRコード",
+    "create": "新規作成",
+    "createDescription": "新しいウォレットを作成します。作成後はシークレットキーを安全に保管してください。",
+    "addExisting": "既存のウォレットを追加",
+    "walletAddress": "ウォレットアドレス",
+    "back": "戻る",
+    "done": "完了",
+    "totalValue": "合計価値",
+    "buy": "購入",
+    "copy": "コピー",
+    "scanToReceive": "スキャンして受け取る",
+    "sending": "送金中...",
+    "error": {
+      "emptyKey": "シークレットキーを入力してください",
+      "invalidKey": "無効なシークレットキーです",
+      "emptyAddress": "アドレスを入力してください",
+      "invalidAmount": "有効な金額を入力してください"
+    }
+  },
+  "crypto": {
+    "usdt": "USDT",
+    "gameCoin": "GameCoin",
+    "bcm": "BCM"
+  }
+}
