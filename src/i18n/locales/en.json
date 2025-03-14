@@ -1,4 +1,8 @@
 {
+  "network": {
+    "ethereum": "Ethereum",
+    "solana": "Solana"
+  },
   "wallet": {
     "title": "3Xs Wallet",
     "balance": "Balance",
@@ -13,9 +17,17 @@
     "success": "Success",
     "error": "Error",
     "importWallet": "Import Wallet",
+    "importEthereum": "Import Ethereum Wallet",
+    "importSolana": "Import Solana Wallet",
     "secretKey": "Secret Key",
+    "privateKey": "Private Key",
+    "privateKeyWarning": "Never share your private key with anyone. Anyone with your private key has full access to your wallet.",
+    "viewPrivateKey": "View Private Key",
+    "copied": "Copied!",
     "qrCode": "QR Code",
     "create": "Create New",
+    "createEthereum": "Create Ethereum Wallet",
+    "createSolana": "Create Solana Wallet",
     "createDescription": "Create a new wallet. Make sure to securely store your secret key after creation.",
     "addExisting": "Add Existing Wallet",
     "walletAddress": "Wallet Address",
@@ -36,6 +48,29 @@
   "crypto": {
     "usdt": "USDT",
     "gameCoin": "GameCoin",
-    "bcm": "BCM"
+    "bcm": "BCM",
+    "sol": "SOL"
+  },
+  "customs": {
+    "title": "Customs Information",
+    "info": "Customs Info",
+    "rate": "Customs Rate",
+    "amount": "Customs Amount",
+    "total": "Total Amount",
+    "pay": "Pay Customs",
+    "processing": "Processing...",
+    "history": "Customs History",
+    "noHistory": "No customs history",
+    "receipt": "Customs Receipt",
+    "download": "Download Receipt",
+    "downloadSuccess": "Receipt downloaded",
+    "viewReceipt": "View Receipt",
+    "status": "Status",
+    "date": "Date",
+    "status": {
+      "pending": "Pending",
+      "paid": "Paid",
+      "exempted": "Exempted"
+    }
   }
 }

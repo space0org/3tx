@@ -1,4 +1,8 @@
 {
+  "network": {
+    "ethereum": "イーサリアム",
+    "solana": "ソラナ"
+  },
   "wallet": {
     "title": "3Xs ウォレット",
     "balance": "残高",
@@ -13,9 +17,17 @@
     "success": "成功",
     "error": "エラー",
     "importWallet": "ウォレットをインポート",
+    "importEthereum": "イーサリアムウォレットをインポート",
+    "importSolana": "ソラナウォレットをインポート",
     "secretKey": "シークレットキー",
+    "privateKey": "秘密鍵",
+    "privateKeyWarning": "秘密鍵は誰とも共有しないでください。秘密鍵を持つ人は、あなたのウォレットに完全にアクセスできます。",
+    "viewPrivateKey": "秘密鍵を表示",
+    "copied": "コピーしました！",
     "qrCode": "QRコード",
     "create": "新規作成",
+    "createEthereum": "イーサリアムウォレットを作成",
+    "createSolana": "ソラナウォレットを作成",
     "createDescription": "新しいウォレットを作成します。作成後はシークレットキーを安全に保管してください。",
     "addExisting": "既存のウォレットを追加",
     "walletAddress": "ウォレットアドレス",
@@ -36,6 +48,29 @@
   "crypto": {
     "usdt": "USDT",
     "gameCoin": "GameCoin",
-    "bcm": "BCM"
+    "bcm": "BCM",
+    "sol": "SOL"
+  },
+  "customs": {
+    "title": "関税情報",
+    "info": "関税情報",
+    "rate": "関税率",
+    "amount": "関税額",
+    "total": "合計金額",
+    "pay": "関税を支払う",
+    "processing": "処理中...",
+    "history": "関税履歴",
+    "noHistory": "関税履歴はありません",
+    "receipt": "関税領収書",
+    "download": "領収書をダウンロード",
+    "downloadSuccess": "領収書がダウンロードされました",
+    "viewReceipt": "領収書を表示",
+    "status": "ステータス",
+    "date": "日付",
+    "status": {
+      "pending": "未払い",
+      "paid": "支払い済み",
+      "exempted": "免除"
+    }
   }
 }
