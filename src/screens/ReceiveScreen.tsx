@@ -7,12 +7,20 @@ import { Card, CardContent, CardHeader, CardTitle } from '../components/ui/card'
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { useWallet } from '../contexts/WalletContext';
+import { useSolanaWallet } from '../contexts/SolanaWalletContext';
+import { useNetwork } from '../contexts/NetworkContext';
 import { setupBackButton } from '../services/telegram';
 
 const ReceiveScreen: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { network } = useNetwork();
   const { wallet, selectedToken } = useWallet();
+  const { wallet: solanaWallet, selectedToken: selectedSolanaToken } = useSolanaWallet();
+
+  const activeWallet = network === 'ethereum' ? wallet : solanaWallet;
+  const activeToken = network === 'ethereum' ? selectedToken : selectedSolanaToken;
+  const address = network === 'ethereum' ? activeWallet?.address : activeWallet?.publicKey;
 
   useEffect(() => {
     setupBackButton(() => {
@@ -21,12 +29,12 @@ const ReceiveScreen: React.FC = () => {
   }, [navigate]);
 
   const handleCopyAddress = () => {
-    if (wallet) {
-      navigator.clipboard.writeText(wallet.address);
+    if (address) {
+      navigator.clipboard.writeText(address);
     }
   };
 
-  if (!wallet) {
+  if (!activeWallet) {
     navigate('/');
     return null;
   }
@@ -40,7 +48,7 @@ const ReceiveScreen: React.FC = () => {
         <CardContent className="flex flex-col items-center gap-4">
           <div className="w-full">
             <Input
-              value={wallet.address}
+              value={address}
               readOnly
               className="font-mono text-xs"
             />
@@ -56,11 +64,11 @@ const ReceiveScreen: React.FC = () => {
           </div>
           
           <div className="bg-white p-4 rounded-lg">
-            <QRCodeSVG value={wallet.address} size={200} />
+            <QRCodeSVG value={address || ''} size={200} />
           </div>
           
           <p className="text-center text-sm text-muted-foreground">
-            {t('wallet.scanToReceive')} {selectedToken?.symbol}
+            {t('wallet.scanToReceive')} {activeToken?.symbol}
           </p>
           
           <Button 
