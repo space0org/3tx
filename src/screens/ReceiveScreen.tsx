@@ -20,7 +20,10 @@ const ReceiveScreen: React.FC = () => {
 
   const activeWallet = network === 'ethereum' ? wallet : solanaWallet;
   const activeToken = network === 'ethereum' ? selectedToken : selectedSolanaToken;
-  const address = network === 'ethereum' ? activeWallet?.address : activeWallet?.publicKey;
+  // Handle different address properties based on wallet type
+  const address = network === 'ethereum' 
+    ? wallet?.address 
+    : solanaWallet?.publicKey;
 
   useEffect(() => {
     setupBackButton(() => {
