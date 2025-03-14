@@ -1,43 +1,4 @@
 {
-  "wallet": {
-    "title": "3Xs Wallet",
-    "balance": "Balance",
-    "send": "Send",
-    "receive": "Receive",
-    "import": "Import",
-    "scan": "Scan",
-    "enterAmount": "Enter Amount",
-    "enterAddress": "Enter Address",
-    "confirm": "Confirm",
-    "cancel": "Cancel",
-    "success": "Success",
-    "error": "Error",
-    "importWallet": "Import Wallet",
-    "secretKey": "Secret Key",
-    "qrCode": "QR Code",
-    "create": "Create New",
-    "createDescription": "Create a new wallet. Make sure to securely store your secret key after creation.",
-    "addExisting": "Add Existing Wallet",
-    "walletAddress": "Wallet Address",
-    "back": "Back",
-    "done": "Done",
-    "totalValue": "Total Value",
-    "buy": "Buy",
-    "copy": "Copy",
-    "scanToReceive": "Scan to receive",
-    "sending": "Sending...",
-    "error": {
-      "emptyKey": "Please enter a secret key",
-      "invalidKey": "Invalid secret key",
-      "emptyAddress": "Please enter an address",
-      "invalidAmount": "Please enter a valid amount"
-    }
-  },
-  "crypto": {
-    "usdt": "USDT",
-    "gameCoin": "GameCoin",
-    "bcm": "BCM"
-  },
   "customs": {
     "title": "Customs Information",
     "info": "Customs Info",

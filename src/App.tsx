@@ -1,34 +1,21 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { WalletProvider } from './contexts/WalletContext';
-import { CustomsProvider } from './contexts/CustomsContext';
-import HomeScreen from './screens/HomeScreen';
-import ImportWalletScreen from './screens/ImportWalletScreen';
-import CreateWalletScreen from './screens/CreateWalletScreen';
-import SendScreen from './screens/SendScreen';
-import ReceiveScreen from './screens/ReceiveScreen';
-import CustomsScreen from './screens/CustomsScreen';
-import CustomsHistoryScreen from './screens/CustomsHistoryScreen';
-import CustomsReceiptScreen from './screens/CustomsReceiptScreen';
-import { initTelegramApp } from './services/telegram';
-import './i18n/i18n';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { WalletProvider } from "./contexts/WalletContext";
+import { CustomsProvider } from "./contexts/CustomsContext";
+import HomeScreen from "./screens/HomeScreen";
+import CustomsScreen from "./screens/CustomsScreen";
+import CustomsHistoryScreen from "./screens/CustomsHistoryScreen";
+import CustomsReceiptScreen from "./screens/CustomsReceiptScreen";
 
-const App: React.FC = () => {
-  useEffect(() => {
-    // Initialize Telegram WebApp
-    initTelegramApp();
-  }, []);
-
+// Telegram Mini App 3Xs Wallet
+// Implementation of customs duty functionality
+const App = () => {
   return (
     <WalletProvider>
       <CustomsProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<HomeScreen />} />
-            <Route path="/import" element={<ImportWalletScreen />} />
-            <Route path="/create" element={<CreateWalletScreen />} />
-            <Route path="/send" element={<SendScreen />} />
-            <Route path="/receive" element={<ReceiveScreen />} />
             <Route path="/customs" element={<CustomsScreen />} />
             <Route path="/customs/history" element={<CustomsHistoryScreen />} />
             <Route path="/customs/receipt" element={<CustomsReceiptScreen />} />
