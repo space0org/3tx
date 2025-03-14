@@ -8,13 +8,20 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { Alert, AlertDescription } from '../components/ui/alert';
 import { useWallet } from '../contexts/WalletContext';
+import { useSolanaWallet } from '../contexts/SolanaWalletContext';
+import { useNetwork } from '../contexts/NetworkContext';
 import { setupBackButton } from '../services/telegram';
 
 const PrivateKeyScreen: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { network } = useNetwork();
   const { wallet } = useWallet();
+  const { wallet: solanaWallet } = useSolanaWallet();
   const [copied, setCopied] = useState(false);
+  
+  const activeWallet = network === 'ethereum' ? wallet : solanaWallet;
+  const privateKey = activeWallet?.privateKey || '';
 
   useEffect(() => {
     setupBackButton(() => {
@@ -23,14 +30,14 @@ const PrivateKeyScreen: React.FC = () => {
   }, [navigate]);
 
   const handleCopyPrivateKey = () => {
-    if (wallet) {
-      navigator.clipboard.writeText(wallet.privateKey);
+    if (activeWallet) {
+      navigator.clipboard.writeText(privateKey);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     }
   };
 
-  if (!wallet) {
+  if (!activeWallet) {
     navigate('/');
     return null;
   }
@@ -51,7 +58,7 @@ const PrivateKeyScreen: React.FC = () => {
 
           <div>
             <Input
-              value={wallet.privateKey}
+              value={privateKey}
               readOnly
               className="font-mono text-xs mb-2"
             />
